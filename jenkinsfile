@@ -38,7 +38,6 @@ pipeline {
           }
     
           stage('package') {
-            
             steps {
                 script{
                 sshagent{['practice']}
