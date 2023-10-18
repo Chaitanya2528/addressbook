@@ -11,18 +11,21 @@ pipeline {
             steps {
                 echo 'Hello compile World'
                 echo "i love ${params.Env}"
+                sh "mvn compile"
             }
         }
           stage('test') {
             steps {
                 echo 'Hello test World'
                 echo "i am cute ${params.chaitu}"
+                sh "mvn test"
             }
         }
           stage('package') {
             steps {
                 echo 'Hello package World'
                 echo "hi ${params.baby}"
+                sh "mvn package"
             }
         }
     }
