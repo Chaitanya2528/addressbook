@@ -2,17 +2,20 @@ pipeline {
     agent any
     parameters {
         string(name: 'Env', defaultValue: 'Test', description: 'Who should I say hello')
+        booleanParam(name: 'chaitu', defaultValue: true, description: 'chaitu this value')
     }
 
     stages {
         stage('compile') {
             steps {
                 echo 'Hello compile World'
+                echo "i love ${params.Env}"
             }
         }
           stage('test') {
             steps {
                 echo 'Hello test World'
+                echo "i am cute ${params.chaitu}
             }
         }
           stage('package') {
