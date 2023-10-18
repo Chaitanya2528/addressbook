@@ -1,5 +1,8 @@
 pipeline {
-    agent any
+    agent any{
+    tool name: 'Default', type: 'git'
+    tool name: 'myname', type: 'maven'
+    }
     parameters {
         string(name: 'Env', defaultValue: 'Test', description: 'Who should I say hello')
         booleanParam(name: 'chaitu', defaultValue: true, description: 'chaitu this value')
