@@ -40,12 +40,15 @@ pipeline {
           stage('package') {
             
             steps {
+                script{
                 sshagent{['practice']}
                 echo 'Hello package World'
                 echo "hi ${params.baby}"
                 sh "scp -o StrictHostKeyChecking=no server_config.sh ${Dev_chaitu}:/home/ec2-user"
                 sh "ssh -o StrictHostKeyChecking=no ${Dev_chaitu} 'bash ~/server_config.sh'"
             }
+
         }
     }
+}
 }
