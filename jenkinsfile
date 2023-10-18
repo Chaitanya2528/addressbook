@@ -1,5 +1,5 @@
 pipeline {
-    agent any
+    agent none
     tools{
        maven 'myname' 
     }
@@ -11,6 +11,7 @@ pipeline {
 
     stages {
         stage('compile') {
+            agent any
             steps {
                 echo 'Hello compile World'
                 echo "i love ${params.Env}"
@@ -18,6 +19,7 @@ pipeline {
             }
         }
           stage('test') {
+            agent any
             steps {
                 echo 'Hello test World'
                 echo "i am cute ${params.chaitu}"
@@ -25,6 +27,7 @@ pipeline {
             }
         }
           stage('package') {
+            agent {label 'linux'}
             steps {
                 echo 'Hello package World'
                 echo "hi ${params.baby}"
