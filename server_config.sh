@@ -1,5 +1,5 @@
 sudo yum install git -y
-sudo yum install fontconfig java-11-openjdk -y
+sudo yum install ava-1.8.0-openjdk-devel -y
 sudo yum install maven -y
 
 if [ -d "addressbook" ]
