@@ -1,7 +1,8 @@
 pipeline {
     agent none
     tools{
-       maven 'myname' 
+       maven 'myname'
+       java  'myjava'
     }
     parameters {
         string(name: 'Env', defaultValue: 'Test', description: 'Who should I say hello')
