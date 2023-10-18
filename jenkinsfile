@@ -42,7 +42,7 @@ pipeline {
             agent any
             steps {
                 script{
-                sshagent{[ 'ec2-user' ]} {
+                sshagent{[ 'practice' ]} {
                 echo 'Hello package World'
                 echo "hi ${params.baby}"
                 sh "scp -o StrictHostKeyChecking=no server_config.sh ${Dev_chaitu}:/home/ec2-user"
