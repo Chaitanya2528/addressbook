@@ -15,7 +15,7 @@ pipeline {
           stage('test') {
             steps {
                 echo 'Hello test World'
-                echo "i am cute ${params.chaitu}
+                echo "i am cute ${params.chaitu}"
             }
         }
           stage('package') {
