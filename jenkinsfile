@@ -25,12 +25,13 @@ pipeline {
                 echo "i am cute ${params.chaitu}"
                 sh "mvn test"
             }
-        }
         post{
             always{
                 junit 'target/surefire-reports/*.xml'
             }
         }
+          }
+    
           stage('package') {
             agent {label 'linux'}
             steps {
