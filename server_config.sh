@@ -12,4 +12,5 @@ else
    cd addressbook
    git checkout b1
 fi
+
 mvn package
