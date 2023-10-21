@@ -1,56 +1,30 @@
 pipeline {
-    agent none
-    tools{
-       maven 'myname'
+    agent any
     
+    tools{
+        maven 'myname'
     }
-    parameters {
-        string(name: 'Env', defaultValue: 'Test', description: 'Who should I say hello')
-        booleanParam(name: 'chaitu', defaultValue: true, description: 'chaitu this value')
-        choice(name: 'baby', choices: ['One', 'Two', 'Three'], description: 'Pick something')
-    }
-
-    environment{
-        Dev_chaitu='ec2-user@172.31.30.198'
-    }
-
 
     stages {
         stage('compile') {
-            agent any
             steps {
-                echo 'Hello compile World'
-                echo "i love ${params.Env}"
-                sh "mvn compile"
+                echo 'compile hello-world'
+                sh 'mvn compile'
+                
             }
         }
-          stage('test') {
-            agent {label 'linux'}
+        stage('test') {
             steps {
-                echo 'Hello test World'
-                echo "i am cute ${params.chaitu}"
-                sh "mvn test"
-            }
-        post{
-            always{
-                junit 'target/surefire-reports/*.xml'
+                echo 'test hello-world'
+                sh 'mvn test'
             }
         }
-          }
-    
-          stage('package') {
-            agent any
+        stage('package') {
             steps {
-                script{
-                sshagent{['practice']} {
-                echo 'Hello package World'
-                echo "hi ${params.baby}"
-                sh "scp -o StrictHostKeyChecking=no server_config.sh ${Dev_chaitu}:/home/ec2-user"
-                sh "ssh -o StrictHostKeyChecking=no ${Dev_chaitu} 'bash ~/server_config.sh'"
+                echo 'package hello-world in Env'
+                sh 'mvn package'
             }
-
         }
-    }
-}
+        
     }
 }
