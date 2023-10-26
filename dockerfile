@@ -1,9 +1,9 @@
-From 8.5.72-jdk8-openjdk-buster
+FROM tomcat:8.5.72-jdk8-openjdk-buster
 
-Env MAVEN_HOME /usr/share/maven
-Env MAVEN_VERSION 3.8.4
+# Set environment variables for Maven
 
-WORKDIR /app
+ENV MAVEN_HOME /usr/share/maven
+ENV MAVEN_VERSION 3.8.4
 RUN apt-get update && \
     apt-get install -y curl && \
     curl -fsSL https://archive.apache.org/dist/maven/maven-3/$MAVEN_VERSION/binaries/apache-maven-$MAVEN_VERSION-bin.tar.gz | tar xzf - -C /usr/share && \
@@ -12,12 +12,24 @@ RUN apt-get update && \
     apt-get clean && \
      rm -rf /var/lib/apt/lists/*
 
-copy ./pom.xml ./pom.xml
-copy ./src ./src
+# Set the working directory in the container
+WORKDIR /app
 
+# Copy the Maven project files (pom.xml) and the source code into the container
+COPY ./pom.xml ./pom.xml
+COPY ./src ./src
+
+# Build the Maven application and package it as a WAR file
+RUN mvn clean package
+
+# Remove the default Tomcat applications
 RUN rm -rf /usr/local/tomcat/webapps/*
 
-Run mvn package
+# Copy the compiled WAR file from the Maven build to the Tomcat webapps directory
 RUN cp /app/target/addressbook.war /usr/local/tomcat/webapps/
-expose 8080
-CMD ["catalina.sh", "run"] 
+
+# Optionally, expose the port your Tomcat server listens on (default is 8080)
+EXPOSE 8080
+
+
+CMD ["catalina.sh", "run"]
