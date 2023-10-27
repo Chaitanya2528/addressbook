@@ -1,32 +1,29 @@
 pipeline {
     agent any
-    
-    parameters {
-        string(name: 'Env', defaultValue: 'Test', description: 'Env to deploy')
-        booleanParam(name: 'TOGGLE', defaultValue: true, description: 'Toggle this value')
-        choice(name: 'CHOICE', choices: ['One', 'Two', 'Three'], description: 'Pick something')
-    }
 
+    tools{
+        tool name: 'mymaven', type: 'maven'
+    }
+    
     stages {
         stage('compile') {
             steps {
-                echo "compile the code ${params.CHOICE}"
+                echo 'compile the code'
+                sh 'mvn compile'
             }
         }
         stage('test') {
-            when{
-                expression{
-                    params.TOGGLE == true
-                }
-            }
             steps {
                 echo 'test the code'
+                sh 'mvn test'
             }
         }
         stage('package') {
             steps {
-                echo "package the code in Env:${params.Env}"
+                echo 'package the code in Env'
+                sh 'mvn package'
             }
         }
+        
     }
 }
