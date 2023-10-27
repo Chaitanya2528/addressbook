@@ -1,5 +1,5 @@
 pipeline {
-    agent any
+    agent none
 
     tools{
         maven "mymaven"
@@ -7,12 +7,14 @@ pipeline {
     
     stages {
         stage('compile') {
+            agent any
             steps {
                 echo 'compile the code'
                 sh 'mvn compile'
             }
         }
         stage('test') {
+            agent any
             steps {
                 echo 'test the code'
                 sh 'mvn test'
@@ -24,6 +26,7 @@ pipeline {
             }
         }
         stage('package') {
+            agent {label 'linux'}
             steps {
                 echo 'package the code in Env'
                 sh 'mvn package'
