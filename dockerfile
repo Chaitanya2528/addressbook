@@ -1,4 +1,4 @@
-From tomcat:9.0.84-jdk8-corretto
+From tomcat:8.5.72-jdk8-openjdk-buster
 
 Env MAVEN_HOME /usr/share/maven
 Env MAVEN_VERSION 3.8.4
