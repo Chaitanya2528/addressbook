@@ -11,7 +11,9 @@ RUN apt-get update && \
     curl -fsSL https://archive.apache.org/dist/maven/maven-3/$MAVEN_VERSION/binaries/apache-maven-$MAVEN_VERSION-bin.tar.gz | tar xzf - -C /usr/share && \
     mv /usr/share/apache-maven-$MAVEN_VERSION /usr/share/maven && \
     ln -s /usr/share/maven/bin/mvn /usr/bin/mvn && \
-    apt-get clean
+    apt-get clean && \
+     rm -rf /var/lib/apt/lists/*
+
 
 copy ./pom.xml ./pom.xml
 
